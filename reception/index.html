@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rohith &amp; Mrunalini's Reception</title>
+<meta name="description" content="Rohith and Mrunalini invite you to their wedding reception on Sunday, 1 November 2026, 7 pm onwards, at Uttsavam, Hyderabad.">
+<!-- Link preview (WhatsApp etc.). Once the page is hosted, og:image must be changed to a full https:// address. -->
+<meta property="og:url" content="https://renexatechnologies.github.io/rohith-weds-mrunalini/reception/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Rohith &amp; Mrunalini, reception invitation">
+<meta property="og:description" content="Sunday, 1 November 2026 · 7 pm onwards · Uttsavam, Hyderabad">
+<meta property="og:image" content="https://renexatechnologies.github.io/rohith-weds-mrunalini/reception/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#221e20">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%23221e20%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%227%22 fill=%22%23ede4de%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@300;400&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/moon.jpg">
+<style>
+  /* Layout: one full-screen panel per swipe (scroll snap), five in all, starting under the moon. Each panel
+     plays a short entrance the first time it arrives; only opacity and transforms animate. */
+  :root {
+    --night: #221e20;
+    --plum-deep: #34202f;
+    --moon: #ede4de;
+    --haze: #a9a29c;
+    --moon-x: 64.8%;
+    --moon-y: 15.5%;
+    --gutter: clamp(1.25rem, 5vw, 3rem);
+    --edge: max(var(--gutter), 2.25rem);  /* right margin that keeps text clear of the section dots */
+    /* inside Claude's phone app the page is padded by the system bars' safe areas; everywhere else these are 0 */
+    --panel-h: calc(100svh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+    --ease: cubic-bezier(.2, .7, .2, 1);
+    color-scheme: dark;
+    /* plum at every edge, so neighbouring night panels meet without a seam */
+    --dusk: radial-gradient(ellipse at 50% 45%, #4a2a40 0%, var(--plum-deep) 70%);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html {
+    background: var(--night); color: var(--moon);
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: env(safe-area-inset-top, 0px);
+  }
+  body {
+    background: var(--night); color: var(--moon);
+    font-family: "Figtree", system-ui, sans-serif;
+    font-weight: 300;
+    font-size: 1rem;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  html.js:not(.is-open) body { overflow: hidden; height: 100svh; }
+  img { display: block; }
+  button { font: inherit; }
+  [hidden] { display: none !important; }
+  :focus-visible { outline: 1px solid var(--moon); outline-offset: 4px; }
+  .display { font-family: "Marcellus", serif; font-weight: 400; }
+  .nowrap { white-space: nowrap; }
+
+  /* ---------- Panels ---------- */
+  .panel {
+    position: relative; overflow: hidden;
+    height: var(--panel-h);
+    scroll-snap-align: start; scroll-snap-stop: always;
+  }
+  /* Entrances run only with JavaScript and motion allowed; otherwise everything is simply there.
+     --d on an element staggers it. */
+  .anim .rise {
+    opacity: 0; translate: 0 1.25rem;
+    transition: opacity .8s ease var(--d, 0s), translate .9s var(--ease) var(--d, 0s);
+  }
+  .anim .in .rise { opacity: 1; translate: 0 0; }
+  .anim .settle { scale: 1.08; transition: scale 2.6s var(--ease); }
+  .anim .in .settle { scale: 1; }
+  /* the moon photo sits in a 9:16 frame of full panel height, so the moon lands on the same spot on every screen */
+  .frame {
+    position: absolute; left: 50%; top: 0;
+    height: 100%; aspect-ratio: 9 / 16;
+    translate: -50% 0;
+    transform-origin: var(--moon-x) var(--moon-y);
+  }
+  .frame > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+  /* ---------- Section dots ---------- */
+  .dots {
+    position: fixed; z-index: 10;
+    right: max(.25rem, env(safe-area-inset-right, 0px)); top: 50%;
+    translate: 0 -50%;
+    display: grid;
+    transition: opacity .6s ease 1.6s;
+  }
+  html:not(.is-open) .dots { opacity: 0; pointer-events: none; }
+  .dots button { width: 1.5rem; height: 1.5rem; border: 0; background: none; cursor: pointer; display: grid; place-items: center; }
+  .dots button::before {
+    content: ""; width: .42rem; height: .42rem; border-radius: 50%;
+    background: rgba(255,255,255,.5); box-shadow: 0 0 0 1px rgba(34,30,32,.4);
+    transition: scale .3s ease, background-color .3s ease;
+  }
+  .dots button[aria-current="true"]::before { background: #fff; scale: 1.5; }
+
+  /* ---------- 1. Moon: tap, the moon brightens and the names rise ---------- */
+  .moon { background: var(--night); }
+  .moon .dim { position: absolute; inset: 0; background: var(--night); opacity: .3; transition: opacity 2.4s ease; pointer-events: none; }
+  .is-open .moon .dim { opacity: 0; }
+  .glow {
+    position: absolute; left: var(--moon-x); top: var(--moon-y);
+    width: 34%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%;
+    background: radial-gradient(circle, rgba(237,228,222,.6) 0%, rgba(237,228,222,.15) 35%, rgba(237,228,222,0) 70%);
+    pointer-events: none;
+    animation: breathe 3.6s ease-in-out infinite;
+    transition: scale 2.4s var(--ease), opacity 2.4s ease;
+  }
+  .is-open .glow { animation: none; scale: 5; opacity: .5; }
+  @keyframes breathe { 0%, 100% { opacity: .55; scale: .9; } 50% { opacity: 1; scale: 1.08; } }
+  /* the whole first screen opens it, not just the moon */
+  .open-button {
+    position: absolute; inset: 0; z-index: 6;
+    width: 100%; height: 100%;
+    border: 0; background: transparent; cursor: pointer;
+  }
+  .is-open .open-button { display: none; }
+  .hint {
+    position: absolute; left: var(--gutter); right: var(--gutter); top: 34%; z-index: 3;
+    text-align: center; font-size: .95rem; letter-spacing: .02em;
+    text-shadow: 0 1px 14px rgba(0,0,0,.8);
+    pointer-events: none;
+    transition: opacity .6s ease;
+  }
+  .hint b { display: block; font-family: "Marcellus", serif; font-weight: 400; font-size: 1.2rem; letter-spacing: .03em; margin-bottom: .45rem; }
+  .is-open .hint { opacity: 0; }
+  .names {
+    position: absolute; left: 6%; right: 6%; top: 24%; z-index: 3;
+    text-align: center;
+    text-shadow: 0 2px 24px rgba(34,30,32,.55);
+    pointer-events: none;
+  }
+  .names h1 { font-size: clamp(2.6rem, 6.4svh, 4.4rem); line-height: 1.02; letter-spacing: .04em; }
+  .names h1 span { display: block; }
+  .names .amp { font-size: .5em; color: var(--haze); margin: .25em 0 .2em; }
+  .names .lede { font-size: clamp(.95rem, 2svh, 1.1rem); margin-top: 1.1em; }
+  .names .date { font-family: "Marcellus", serif; font-size: clamp(1.05rem, 2.4svh, 1.45rem); letter-spacing: .12em; padding-left: .12em; margin-top: .6em; }
+  .names > * { opacity: 0; translate: 0 .6rem; }
+  .is-open .names > * { opacity: 1; translate: 0 0; transition: opacity 1.4s ease, translate 1.4s ease; }
+  .is-open .names > :nth-child(1) { transition-delay: .9s; }
+  .is-open .names > :nth-child(2) { transition-delay: 1.5s; }
+  .is-open .names > :nth-child(3) { transition-delay: 1.9s; }
+  .swipe {
+    position: absolute; z-index: 3; left: 0; right: 0; bottom: max(1.1rem, 3svh);
+    display: grid; justify-items: center; gap: .35rem;
+    font-size: .85rem; letter-spacing: .06em;
+    text-shadow: 0 1px 10px rgba(0,0,0,.8);
+    opacity: 0; transition: opacity .8s ease 2.8s;
+    pointer-events: none;
+  }
+  .is-open .swipe { opacity: .9; }
+  .scrolled .swipe { opacity: 0; transition-delay: 0s; }
+  .swipe i { width: .65rem; height: .65rem; border-left: 1.5px solid; border-top: 1.5px solid; rotate: 45deg; animation: nudge 1.8s ease-in-out infinite; }
+  @keyframes nudge { 50% { translate: 0 -.3rem; } }
+  .swipe .mouse { display: none; }
+  @media (hover: hover) and (pointer: fine) { .swipe .touch { display: none; } .swipe .mouse { display: inline; } }
+
+  /* ---------- 2. Save the evening: closer to the moon, its light fills the screen ---------- */
+  .light { background: var(--night); }
+  .light .frame { scale: 2.2; }  /* only sky and moon in view */
+  .flood {
+    position: absolute; left: var(--moon-x); top: var(--moon-y);
+    width: 12%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%;
+    background: radial-gradient(circle, #fbf8f5 0 35%, var(--moon) 55%, rgba(237,228,222,0) 72%);
+    scale: 28;
+  }
+  .anim .flood { transition: scale 1.7s cubic-bezier(.65, 0, .25, 1) .3s; }
+  .anim .light:not(.in) .flood { scale: 1; }
+  .in-moon {
+    position: absolute; inset: 0; z-index: 2;
+    display: grid; place-content: center; text-align: center;
+    color: var(--plum-deep);
+    padding: var(--gutter);
+  }
+  .in-moon p { font-size: 1.1rem; letter-spacing: .04em; }
+  .in-moon b { display: block; font-family: "Marcellus", serif; font-weight: 400; font-size: clamp(3rem, 13vw, 6.5rem); line-height: 1; margin: .6rem 0; }
+  .in-moon span { display: block; font-family: "Marcellus", serif; font-size: clamp(1.15rem, 4.6vw, 1.7rem); letter-spacing: .08em; }
+
+  /* Banana-leaf line texture (Adobe Stock 542503795), the plants behind them in the night photos.
+     It fades out towards the middle so the text and prints stay clean. */
+  .prints::before, .close::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: url(img/bananaleaf.webp) center / 24rem auto repeat;
+    opacity: .16;
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, transparent 25%, #000 85%);
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, transparent 25%, #000 85%);
+  }
+
+  /* ---------- 3. Three prints fan out ---------- */
+  .prints { background: var(--dusk); }
+  .prints .title {
+    position: absolute; z-index: 5; left: var(--edge); right: var(--edge); top: clamp(2rem, 8svh, 4rem);
+    max-width: 42rem; margin: 0 auto;
+    text-align: center; font-family: "Marcellus", serif;
+    font-size: clamp(1.35rem, 5.2vw, 2.1rem); line-height: 1.3;
+  }
+  .print {
+    position: absolute; left: 50%; top: 56%;
+    width: min(50vw, 20rem, calc(var(--panel-h) * .3)); aspect-ratio: 3 / 4;
+    padding: .45rem .45rem 2rem;
+    background: var(--moon);
+    box-shadow: 0 1.5rem 3rem -1rem rgba(0,0,0,.6);
+  }
+  .print img { width: 100%; height: 100%; object-fit: cover; }
+  .print.a { rotate: -11deg; translate: calc(-50% - min(22vw, 17rem)) calc(-50% + 2svh); z-index: 1; }
+  .print.b { rotate: 0deg; translate: -50% calc(-50% - 8svh); z-index: 3; }
+  .print.c { rotate: 9deg; translate: calc(-50% + min(22vw, 17rem)) calc(-50% + 4svh); z-index: 2; }
+  .anim .print { transition: translate 1.1s var(--ease) var(--d, 0s), rotate 1.1s var(--ease) var(--d, 0s); }
+  .anim .prints:not(.in) .print.a { rotate: -2deg; translate: -50% -50%; }
+  .anim .prints:not(.in) .print.b { rotate: 3deg; translate: -50% -50%; }
+  .anim .prints:not(.in) .print.c { rotate: -1deg; translate: -50% -50%; }
+
+  /* ---------- 4. Reception details ---------- */
+  .details { background: var(--night); }
+  .details .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; }
+  .details .shade { position: absolute; inset: 0; background: linear-gradient(to top, rgba(34,30,32,.96), rgba(34,30,32,.65) 50%, rgba(34,30,32,.4)); pointer-events: none; }
+  .details .text {
+    position: absolute; z-index: 1;
+    left: var(--gutter); right: var(--edge); bottom: clamp(2rem, 7svh, 4rem);
+    max-width: 34rem;
+  }
+  .day { font-family: "Marcellus", serif; font-size: 1.15rem; letter-spacing: .06em; color: var(--haze); }
+  .details h2 { font-size: clamp(2.6rem, 11vw, 4.6rem); line-height: 1; margin: .15rem 0 .6rem; }
+  .place { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(237,228,222,.25); }
+  .place small { display: block; color: var(--haze); font-size: .95rem; }
+  .round {
+    flex: 0 0 auto;
+    width: 3rem; height: 3rem;
+    border-radius: 50%;
+    border: 1px solid currentColor;
+    color: inherit;
+    display: grid; place-items: center;
+    text-decoration: none;
+  }
+  .round svg { width: 1.2rem; height: 1.2rem; }
+  .note { margin-top: 1.25rem; color: var(--haze); }
+  .countdown { margin-top: .5rem; color: var(--haze); }
+
+  /* ---------- 5. Close ---------- */
+  .close {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 2rem var(--edge);
+  }
+  .close .disc {
+    width: 3.4rem; aspect-ratio: 1; border-radius: 50%; margin-bottom: 2.25rem;
+    background: radial-gradient(circle at 38% 36%, #fbf8f5, var(--moon) 55%, #cdc2ba);
+    box-shadow: 0 0 2.5rem .75rem rgba(237,228,222,.18);
+  }
+  .close .follow { font-family: "Marcellus", serif; font-size: clamp(1.6rem, 6.5vw, 2.4rem); line-height: 1.25; }
+  .close .sign { color: var(--haze); margin-top: .75rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: .75rem; justify-content: center; margin-top: 2.5rem; }
+  .button {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .8rem 1.3rem;
+    border-radius: 999px; border: 1px solid var(--moon);
+    background: transparent; color: var(--moon);
+    font-weight: 400; font-size: .98rem;
+    cursor: pointer;
+  }
+  .button.solid { background: var(--moon); color: var(--night); }
+  .button svg { width: 1.05rem; height: 1.05rem; }
+  .toast { display: block; min-height: 1.5em; margin-top: .75rem; color: var(--haze); }
+
+  /* ---------- Wide screens: the portrait photo sits in a right-hand panel ---------- */
+  @media (min-width: 900px) {
+    .details { --panel: min(46vw, calc(var(--panel-h) * .75)); }
+    .details .bg { left: auto; right: 0; width: var(--panel); }
+    .details .shade { display: none; }
+    .details .text { left: 6vw; right: calc(var(--panel) + 4vw); bottom: auto; top: 50%; translate: 0 -50%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .glow { animation: none; }
+    *, *::before, *::after { animation: none !important; transition-duration: 0s !important; transition-delay: 0s !important; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="cal" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></g></symbol>
+  <symbol id="pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></g></symbol>
+  <symbol id="share" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3M7.5 7.5 12 3l4.5 4.5"/><path d="M5 12v7.5h14V12"/></g></symbol>
+</svg>
+
+<nav class="dots" id="dots" aria-label="Parts of the invitation"></nav>
+
+<main>
+  <section class="panel moon" data-name="Rohith &amp; Mrunalini" aria-label="Rohith and Mrunalini">
+    <div class="frame">
+      <img src="img/moon.jpg" alt="Rohith and Mrunalini from behind, arms around each other, looking up at a full moon" decoding="async">
+      <div class="glow" aria-hidden="true"></div>
+    </div>
+    <div class="dim" aria-hidden="true"></div>
+    <p class="hint"><b>An invitation from <span class="nowrap">Rohith &amp; Mrunalini</span></b>Tap the moon to open</p>
+    <div class="names">
+      <h1 class="display"><span>Rohith</span><span class="amp">&amp;</span><span>Mrunalini</span></h1>
+      <p class="lede">invite you to their wedding reception</p>
+      <p class="date">Sunday, 1 November</p>
+    </div>
+    <p class="swipe" aria-hidden="true"><i></i><span class="touch">Swipe up</span><span class="mouse">Scroll down</span></p>
+    <button class="open-button" type="button" aria-label="Open the invitation"></button>
+  </section>
+
+  <section class="panel light" data-name="Save the evening" aria-labelledby="light-title">
+    <div class="frame">
+      <img src="img/moon.jpg" alt="" decoding="async">
+      <div class="flood" aria-hidden="true"></div>
+    </div>
+    <div class="in-moon">
+      <p class="rise" style="--d:1.2s">Save the evening</p>
+      <b class="rise" id="light-title" style="--d:1.3s">1 November</b>
+      <span class="rise" style="--d:1.4s">Sunday · 7 pm onwards</span>
+    </div>
+  </section>
+
+  <section class="panel prints" data-name="Photos" aria-label="Photos">
+    <p class="title rise">After the wedding in Vijayawada, we're celebrating in Hyderabad</p>
+    <figure class="print a" style="--d:.1s"><img src="img/hold.jpg" alt="Rohith and Mrunalini holding each other at night" decoding="async"></figure>
+    <figure class="print c" style="--d:.2s"><img src="img/laugh.jpg" alt="Rohith and Mrunalini laughing together" decoding="async"></figure>
+    <figure class="print b" style="--d:.15s"><img src="img/gaze.jpg" alt="Mrunalini looking up at Rohith, smiling, among banana leaves at night" decoding="async"></figure>
+  </section>
+
+  <section class="panel details" data-name="Reception" aria-labelledby="reception-title">
+    <img class="bg settle" src="img/dance.jpg" alt="Rohith and Mrunalini laughing in a garden at night" decoding="async">
+    <div class="shade" aria-hidden="true"></div>
+    <div class="text">
+      <p class="day rise">Sunday, 1 November</p>
+      <h2 class="display rise" id="reception-title" style="--d:.08s">Reception</h2>
+      <p class="rise" style="--d:.16s">7:00 pm onwards</p>
+      <div class="place rise" style="--d:.24s">
+        <p>Uttsavam<small>Hyderabad</small></p>
+        <a class="round" data-pin="reception" hidden target="_blank" rel="noopener" aria-label="Directions to Uttsavam"><svg><use href="#pin"/></svg></a>
+      </div>
+      <p class="note rise" style="--d:.32s">Our wedding is on Friday, 30 October at Shivashakti Mandapam, Vijayawada, with the muhurtham at 11 am.</p>
+      <p class="countdown rise" id="countdown" style="--d:.4s">The reception is on Sunday, 1 November at 7 pm.</p>
+    </div>
+  </section>
+
+  <section class="panel close" data-name="See you there" aria-label="Closing">
+    <div class="disc rise" aria-hidden="true"></div>
+    <p class="follow rise" style="--d:.1s">We'd love to see you there.</p>
+    <p class="sign rise" style="--d:.2s">With love, Rohith &amp; Mrunalini</p>
+    <div class="actions rise" style="--d:.3s">
+      <button class="button solid" type="button" id="add-cal"><svg><use href="#cal"/></svg>Add to calendar</button>
+      <button class="button" type="button" id="share-link"><svg><use href="#share"/></svg>Share</button>
+    </div>
+    <span class="toast" id="toast" role="status"></span>
+  </section>
+</main>
+
+<script>
+(() => {
+  const root = document.documentElement;
+  root.classList.add("js");
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const still = new URLSearchParams(location.search).has("still");
+  if (still || reduced) root.classList.add("is-open");
+  else if ("IntersectionObserver" in window) root.classList.add("anim");
+  const panels = [...document.querySelectorAll(".panel")];
+
+  /* ---- Section dots, and each panel's entrance the first time most of it is on screen ---- */
+  const dots = document.getElementById("dots");
+  for (const p of panels) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("aria-label", p.dataset.name);
+    b.addEventListener("click", () => p.scrollIntoView({ behavior: reduced ? "auto" : "smooth" }));
+    dots.append(b);
+  }
+  function arrive(i) {
+    [...dots.children].forEach((d, j) => d.setAttribute("aria-current", j === i));
+    if (i > 0) root.classList.add("scrolled");
+    panels[i].classList.add("in");
+  }
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(entries => {
+      for (const e of entries) if (e.isIntersecting) arrive(panels.indexOf(e.target));
+    }, { threshold: .6 });
+    panels.forEach(p => io.observe(p));
+  } else {
+    panels.forEach(p => p.classList.add("in"));
+  }
+
+  /* ---- One swipe, one panel. Snapping alone needs a fast flick or a half-screen drag and otherwise springs
+          back, so any clear vertical swipe, or one turn of a mouse wheel or trackpad, moves exactly one panel. ---- */
+  const dialog = document.querySelector("dialog");
+  let openedAt = 0, touch = null, touchFrom = 0, lastWheel = 0;
+  const nearest = () => panels.reduce((best, p, i) =>
+    Math.abs(p.getBoundingClientRect().top) < Math.abs(panels[best].getBoundingClientRect().top) ? i : best, 0);
+  const go = i => panels[Math.max(0, Math.min(panels.length - 1, i))].scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+  const ready = () => root.classList.contains("is-open") && !(dialog && dialog.open) && performance.now() - openedAt > 600;
+  addEventListener("touchstart", e => {
+    touch = ready() ? { x: e.touches[0].clientX, y: e.touches[0].clientY } : null;
+    if (touch) touchFrom = nearest();
+  }, { passive: true });
+  let target = null;
+  addEventListener("touchend", e => {
+    if (!touch) return;
+    const dx = touch.x - e.changedTouches[0].clientX, dy = touch.y - e.changedTouches[0].clientY;
+    touch = null;
+    if (Math.abs(dy) <= 40 || Math.abs(dy) <= Math.abs(dx)) return;  // taps, and sideways swipes in the photo strip
+    target = Math.max(0, Math.min(panels.length - 1, touchFrom + Math.sign(dy)));
+    // the phone's own flick starts on release; moving a frame later lets this move take over from it
+    requestAnimationFrame(() => go(target));
+    if (!("onscrollend" in window)) setTimeout(() => { if (target !== null && nearest() !== target) go(target); }, 500);
+  }, { passive: true });
+  // if the flick still won and sprang back, finish the move once scrolling stops
+  addEventListener("scrollend", () => {
+    if (target === null) return;
+    if (nearest() !== target) go(target); else target = null;
+  });
+  addEventListener("wheel", e => {
+    if (!ready() || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    e.preventDefault();
+    const now = performance.now(), fresh = now - lastWheel > 220;  // a trackpad sends a burst of events per gesture
+    lastWheel = now;
+    if (fresh) go(nearest() + Math.sign(e.deltaY));
+  }, { passive: false });
+
+  // a tap anywhere, a swipe or a scroll opens it, so nobody gets stuck on the first screen
+  const open = () => {
+    if (root.classList.contains("is-open")) return;
+    openedAt = performance.now();
+    root.classList.add("is-open");
+  };
+  document.querySelector(".open-button").addEventListener("click", open);
+  addEventListener("touchmove", open, { passive: true });
+  addEventListener("wheel", open, { passive: true });
+
+  /* ---- Venue pin: paste the reception venue's Google Maps share link ("Share", then "Copy link").
+          The directions button stays hidden until it's set, so nobody is sent to the wrong place. ---- */
+  const PINS = { reception: "" };
+  document.querySelectorAll("[data-pin]").forEach(a => {
+    const url = PINS[a.dataset.pin];
+    if (url) { a.href = url; a.hidden = false; }
+  });
+
+  // Claude's artifact viewer blocks file downloads and the share sheet, so these buttons are hidden there
+  if (window.claude) {
+    document.getElementById("add-cal").hidden = true;
+    document.getElementById("share-link").hidden = true;
+  }
+
+  const reception = new Date("2026-11-01T19:00:00+05:30");
+  const el = document.getElementById("countdown");
+  const plural = (n, w) => `${n} ${w}${n === 1 ? "" : "s"}`;
+  function tick() {
+    const ms = reception - Date.now();
+    if (ms <= 0) { el.textContent = "Today is the day."; return; }
+    const m = Math.floor(ms / 60000);
+    el.textContent = `That's ${plural(Math.floor(m / 1440), "day")}, ${plural(Math.floor((m % 1440) / 60), "hour")} and ${plural(m % 60, "minute")} from now.`;
+  }
+  tick(); setInterval(tick, 30000);
+
+  const toast = document.getElementById("toast");
+  document.getElementById("add-cal").addEventListener("click", () => {
+    const ics = [
+      "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Rohith and Mrunalini//Reception//EN",
+      "BEGIN:VEVENT", "UID:reception-rohith-mrunalini-2026", "DTSTAMP:20261010T000000Z",
+      "DTSTART:20261101T133000Z", "DTEND:20261101T163000Z",
+      "SUMMARY:Rohith & Mrunalini's reception", "LOCATION:Uttsavam\\, Hyderabad", `DESCRIPTION:${location.href.split("?")[0]}`,
+      "END:VEVENT", "END:VCALENDAR"
+    ].join("\r\n");
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
+    a.download = "rohith-mrunalini-reception.ics";
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    toast.textContent = "Calendar file downloaded. Open it to add the reception.";
+  });
+
+  document.getElementById("share-link").addEventListener("click", async () => {
+    const data = { title: "Rohith & Mrunalini's reception", text: "You're invited to our wedding reception on Sunday, 1 November in Hyderabad.", url: location.href.split("?")[0] };
+    if (navigator.share) {
+      try { await navigator.share(data); return; }
+      catch (err) { if (err && err.name === "AbortError") return; }  // refused: fall back to copying the link
+    }
+    try {
+      await navigator.clipboard.writeText(data.url);
+      toast.textContent = "Link copied. Paste it into WhatsApp or anywhere you like.";
+    } catch {
+      toast.textContent = "Couldn't copy the link. Copy it from your browser's address bar instead.";
+    }
+  });
+})();
+</script>
+</body>
+</html>

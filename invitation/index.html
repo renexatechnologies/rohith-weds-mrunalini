@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rohith &amp; Mrunalini's Wedding</title>
+<meta name="description" content="Rohith and Mrunalini invite you to their wedding on Friday, 30 October 2026 at Shivashakti Mandapam, Vijayawada.">
+<!-- Link preview (WhatsApp etc.). Once the page is hosted, og:image must be changed to a full https:// address. -->
+<meta property="og:url" content="https://renexatechnologies.github.io/rohith-weds-mrunalini/invitation/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Rohith &amp; Mrunalini, wedding invitation">
+<meta property="og:description" content="Friday, 30 October 2026 · Shivashakti Mandapam, Vijayawada">
+<meta property="og:image" content="https://renexatechnologies.github.io/rohith-weds-mrunalini/invitation/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f2ece3">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%23f2ece3%22/%3E%3Cpath d=%22M9 15h14M10 15c-1 9 4 12 6 12s7-3 6-12M16 7a3 4 0 1 0 0.1 0%22 fill=%22none%22 stroke=%22%23b17d43%22 stroke-width=%222%22 stroke-linecap=%22round%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/hero.jpg">
+<style>
+  /* Layout: one full-screen panel per swipe (scroll snap), six in all. Each panel plays a short entrance the
+     first time it arrives. Only opacity, transforms and one clip-path animate, so it stays smooth on phones. */
+  :root {
+    --ivory: #f2ece3;
+    --silk-deep: #2f5547;
+    --zari: #d7c49f;
+    --marigold-wash: #f4e4bf;
+    --gold: #b17d43;
+    --kumkum: #91392c;
+    --ink: #3a2422;
+    --night: #221e20;
+    --plum-deep: #34202f;
+    --moon: #ede4de;
+    --haze: #a9a29c;
+    --gutter: clamp(1.25rem, 5vw, 3rem);
+    --edge: max(var(--gutter), 2.25rem);  /* right margin that keeps text clear of the section dots */
+    /* inside Claude's phone app the page is padded by the system bars' safe areas; everywhere else these are 0 */
+    --panel-h: calc(100svh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+    --ease: cubic-bezier(.2, .7, .2, 1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html {
+    background: var(--ivory); color: var(--ink);
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: env(safe-area-inset-top, 0px);
+  }
+  body {
+    background: var(--ivory); color: var(--ink);
+    font-family: "Figtree", system-ui, sans-serif;
+    font-weight: 300;
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  html.js:not(.is-open) body { overflow: hidden; height: 100svh; }
+  img { display: block; max-width: 100%; }
+  .display { font-family: "Marcellus", serif; font-weight: 400; }
+  button, a.button { font: inherit; }
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+  [hidden] { display: none !important; }
+  .names span { display: block; }
+  .amp { font-size: .45em; }
+
+  /* ---------- Panels ---------- */
+  .panel {
+    position: relative; overflow: hidden;
+    height: var(--panel-h);
+    scroll-snap-align: start; scroll-snap-stop: always;
+  }
+  .fill { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .shade { position: absolute; inset: 0; pointer-events: none; }
+  .window-light {
+    position: absolute; top: -12%; right: -18%;
+    width: 95vmax; height: 95vmax;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5vmax;
+    transform: rotate(-24deg) skewX(-18deg);
+    filter: blur(14px);
+    pointer-events: none;
+  }
+  .window-light span { background: linear-gradient(160deg, rgba(203,153,56,.55), rgba(203,153,56,.18)); }
+
+  /* Entrances run only with JavaScript and motion allowed; otherwise everything is simply there.
+     --d on an element staggers it. */
+  .anim .rise, .anim .h-rise {
+    opacity: 0; translate: 0 1.25rem;
+    transition: opacity .8s ease var(--d, 0s), translate .9s var(--ease) var(--d, 0s);
+  }
+  .anim .in .rise, .anim.is-open .h-rise { opacity: 1; translate: 0 0; }
+  .anim .settle { scale: 1.08; transition: scale 2.6s var(--ease); }
+  .anim .in .settle { scale: 1; }
+
+  /* ---------- Cover ---------- */
+  .cover {
+    position: fixed; inset: 0;
+    z-index: 20;
+    display: grid; place-items: center;
+    background: var(--ivory);
+    overflow: hidden;
+    transition: opacity .7s ease .2s, visibility 0s linear .9s;
+  }
+  .is-open .cover { opacity: 0; visibility: hidden; pointer-events: none; }
+  html:not(.js) .cover { display: none; }
+  .cover-inner { position: relative; text-align: center; padding: var(--gutter); padding-top: calc(var(--gutter) + min(22vw, 14svh)); transition: opacity .5s ease, translate .8s var(--ease); }
+  .is-open .cover-inner { opacity: 0; translate: 0 -2rem; }
+  /* Mango-leaf thoranam (Adobe Stock 1928280459) hung across the top; it drops into place once */
+  .thoranam {
+    position: absolute; top: 0; left: 50%; translate: -50% 0;
+    width: min(100%, 44rem); height: auto;
+    filter: saturate(.8) brightness(.97);
+    pointer-events: none;
+  }
+  .anim .thoranam { animation: hang 1.1s var(--ease) .1s both; }
+  @keyframes hang { from { translate: -50% -110%; } }
+  /* Kolam (Adobe Stock 1167019863) drawn the way it is at a doorstep: the pulli (dots) first, then the
+     loops around them, from the centre outwards. --i on each path is its order. */
+  .kolam { display: block; width: clamp(9rem, min(46vw, 26svh), 15rem); height: auto; margin: 0 auto 1.75rem; color: var(--gold); overflow: visible; }
+  .k-dots path { fill: var(--kumkum); transform-box: fill-box; transform-origin: center; }
+  .anim .k-dots path { scale: 0; animation: pulli .4s var(--ease) calc(.35s + var(--i) * .035s) forwards; }
+  .anim .k-lines path { stroke-dasharray: 1 1; stroke-dashoffset: 1; animation: draw .8s ease-in-out calc(1.15s + var(--i) * .06s) forwards; }
+  @keyframes pulli { to { scale: 1; } }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  .cover h1 { font-size: clamp(2.2rem, 9vw, 3.6rem); line-height: 1.05; letter-spacing: .03em; }
+  .cover .amp { color: var(--gold); margin: .3em 0; }
+  .cover .sub { margin-top: 1.2rem; color: var(--silk-deep); }
+  .open-label {
+    display: inline-block; margin-top: 2.5rem;
+    padding: .8rem 1.6rem;
+    border: 1px solid var(--gold); border-radius: 999px;
+    font-weight: 400;
+    animation: invite 2.8s ease-in-out infinite;
+  }
+  @keyframes invite { 50% { background: rgba(203,153,56,.14); } }
+  .anim .open-label { opacity: 0; animation: appear .8s ease 3.1s forwards, invite 2.8s ease-in-out 3.9s infinite; }
+  @keyframes appear { to { opacity: 1; } }
+  .open-button { position: absolute; inset: 0; width: 100%; height: 100%; background: transparent; border: 0; cursor: pointer; z-index: 2; }
+  #rice { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 30; }
+
+  /* ---------- Section dots ---------- */
+  .dots {
+    position: fixed; z-index: 10;
+    right: max(.25rem, env(safe-area-inset-right, 0px)); top: 50%;
+    translate: 0 -50%;
+    display: grid;
+    transition: opacity .6s ease 1.6s;
+  }
+  html:not(.is-open) .dots { opacity: 0; pointer-events: none; }
+  .dots button { width: 1.5rem; height: 1.5rem; border: 0; background: none; cursor: pointer; display: grid; place-items: center; }
+  .dots button::before {
+    content: ""; width: .42rem; height: .42rem; border-radius: 50%;
+    background: rgba(255,255,255,.55); box-shadow: 0 0 0 1px rgba(34,30,32,.3);
+    transition: scale .3s ease, background-color .3s ease;
+  }
+  .dots button[aria-current="true"]::before { background: #fff; scale: 1.5; }
+
+  /* ---------- 1. Hero: an arched window opens onto the portrait ---------- */
+  .hero { background: var(--ivory); }
+  .hero .fill { object-position: 50% 30%; }
+  .anim .hero .fill {
+    clip-path: inset(14% 16% 30% 16% round 50% 50% 0 0 / 24% 24% 0 0);
+    scale: 1.06;
+    transition: clip-path 1.5s var(--ease) .5s, scale 2.6s var(--ease) .5s;
+  }
+  .anim.is-open .hero .fill { clip-path: inset(0% 0% 0% 0% round 0% 0% 0 0 / 0% 0% 0 0); scale: 1; }
+  .hero .shade { background: linear-gradient(to top, rgba(58,36,34,.9), rgba(58,36,34,.35) 40%, rgba(58,36,34,0) 66%); }
+  .anim .hero .shade { opacity: 0; transition: opacity 1s ease 1.3s; }
+  .anim.is-open .hero .shade { opacity: 1; }
+  .hero .text {
+    position: absolute; z-index: 1;
+    left: var(--gutter); right: var(--edge); bottom: clamp(4.5rem, 13svh, 7rem);
+    color: var(--ivory);
+  }
+  .hero h2 { font-size: clamp(3rem, 13vw, 6rem); line-height: .96; letter-spacing: .02em; }
+  .hero .amp { color: var(--zari); margin: .2em 0 .1em; }
+  .hero .invite { margin-top: 1rem; font-size: 1.1rem; max-width: 21rem; }
+  .hero .when { font-family: "Marcellus", serif; color: var(--zari); letter-spacing: .08em; margin-top: .5rem; }
+  .swipe {
+    position: absolute; z-index: 1; left: 0; right: 0; bottom: max(1.1rem, 3svh);
+    display: grid; justify-items: center; gap: .35rem;
+    color: var(--ivory); font-size: .85rem; letter-spacing: .06em;
+    opacity: 0; transition: opacity .8s ease 2.4s;
+    pointer-events: none;
+  }
+  .is-open .swipe { opacity: .9; }
+  .scrolled .swipe { opacity: 0; transition-delay: 0s; }
+  .swipe i { width: .65rem; height: .65rem; border-left: 1.5px solid; border-top: 1.5px solid; rotate: 45deg; animation: nudge 1.8s ease-in-out infinite; }
+  @keyframes nudge { 50% { translate: 0 -.3rem; } }
+  .swipe .mouse { display: none; }
+  @media (hover: hover) and (pointer: fine) { .swipe .touch { display: none; } .swipe .mouse { display: inline; } }
+
+  /* ---------- 2. Haldi: her print and his slide in and meet ---------- */
+  .haldi { background: var(--marigold-wash); }
+  .haldi .window-light { opacity: .55; }
+  .haldi .title { position: absolute; z-index: 3; left: var(--gutter); right: var(--edge); top: clamp(1.5rem, 6svh, 3.5rem); }
+  .haldi .title b { display: block; font-family: "Marcellus", serif; font-weight: 400; font-size: clamp(2.6rem, 11vw, 4.6rem); line-height: 1; }
+  .haldi .title span { display: block; }
+  .print {
+    position: absolute; z-index: 2;
+    width: min(60vw, 23rem);
+    aspect-ratio: 3 / 4;
+    background: #fff;
+    padding: .5rem .5rem 3.3rem;
+    box-shadow: 0 1.5rem 3rem -1rem rgba(58,36,34,.35);
+  }
+  .print img { width: 100%; height: 100%; object-fit: cover; }
+  /* name over time, both left-aligned: on phones his print overlaps the right side of hers */
+  .print figcaption {
+    position: absolute; left: .75rem; right: .75rem; bottom: .5rem;
+    font-size: .95rem; line-height: 1.25;
+  }
+  .print figcaption b { display: block; font-family: "Marcellus", serif; font-weight: 400; font-size: 1.15rem; }
+  .print.her { left: 5vw; top: 25%; rotate: -4deg; }
+  .print.his { right: 5vw; top: 49%; rotate: 3deg; }
+  .anim .print { transition: translate 1.1s var(--ease) var(--d, 0s), rotate 1.1s var(--ease) var(--d, 0s); }
+  .anim .haldi:not(.in) .print.her { translate: -115vw 0; rotate: -14deg; }
+  .anim .haldi:not(.in) .print.his { translate: 115vw 0; rotate: 13deg; }
+  @media (min-width: 900px) {
+    .print { width: min(24vw, 22rem); }
+    .print.her { left: auto; right: 52%; top: 22%; }
+    .print.his { right: auto; left: 52%; top: 30%; }
+  }
+
+  /* ---------- 3. Wedding and 4. Reception ---------- */
+  .wedding { background: var(--silk-deep); }
+  .wedding .fill { object-position: 50% 25%; }
+  .wedding .shade { background: linear-gradient(to top, rgba(47,85,71,.95), rgba(47,85,71,.55) 42%, rgba(47,85,71,0) 70%); }
+  .wedding .text, .reception .text {
+    position: absolute; z-index: 1;
+    left: var(--gutter); right: var(--edge); bottom: clamp(2rem, 7svh, 4rem);
+    max-width: 38rem;
+    color: var(--ivory);
+  }
+  .day { font-family: "Marcellus", serif; font-size: 1.15rem; letter-spacing: .06em; color: var(--zari); }
+  .wedding h2, .reception h2 { font-size: clamp(2.6rem, 11vw, 4.6rem); line-height: 1; margin: .15rem 0 .6rem; }
+  .clock { display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem; margin: 1.25rem 0 .75rem; max-width: 26rem; }
+  .clock div { border-top: 1px solid rgba(215,196,159,.5); padding-top: .5rem; }
+  .clock b { display: block; font-family: "Marcellus", serif; font-weight: 400; font-size: clamp(1.9rem, 8vw, 2.6rem); line-height: 1; font-variant-numeric: tabular-nums; }
+  .clock span { font-size: .9rem; color: var(--zari); }
+  .local { font-size: .95rem; opacity: .85; }
+  .place { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(242,236,227,.25); }
+  .place small { display: block; opacity: .8; font-size: .95rem; }
+  .round {
+    flex: 0 0 auto;
+    width: 3rem; height: 3rem;
+    border-radius: 50%;
+    border: 1px solid currentColor;
+    background: transparent; color: inherit;
+    display: grid; place-items: center;
+    cursor: pointer; text-decoration: none;
+  }
+  .round svg { width: 1.2rem; height: 1.2rem; }
+
+  .reception { background: var(--plum-deep); }
+  .reception .text { color: var(--moon); }
+  .reception .fill { object-position: 45% 30%; }
+  .anim .reception .fill { opacity: .3; transition: opacity 1.4s ease, scale 2.6s var(--ease); }
+  .anim .reception.in .fill { opacity: 1; }
+  .reception .shade { background: linear-gradient(to top, rgba(34,30,32,.95), rgba(34,30,32,.5) 40%, rgba(34,30,32,0) 68%); }
+  .reception .day { color: var(--haze); }
+  .reception .place { border-color: rgba(237,228,222,.25); }
+
+  /* ---------- 5. Photos: swipe sideways, tap for full screen ---------- */
+  .strip { background: var(--night); color: var(--moon); display: flex; flex-direction: column; justify-content: center; }
+  .strip h2 { font-size: clamp(1.7rem, 6vw, 2.6rem); padding: 0 var(--edge) 0 var(--gutter); }
+  .strip .hint { padding: .2rem var(--edge) 0 var(--gutter); color: var(--haze); }
+  .track {
+    display: flex; gap: .9rem;
+    overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter);
+    padding: 1.5rem var(--gutter);
+    scrollbar-width: none;
+  }
+  .track::-webkit-scrollbar { display: none; }
+  .track button { flex: 0 0 auto; scroll-snap-align: start; border: 0; padding: 0; background: none; cursor: zoom-in; }
+  .track img { height: min(50svh, 34rem); width: auto; aspect-ratio: 3 / 4; object-fit: cover; }
+  .track button:nth-child(even) img { margin-top: 2rem; }
+  .anim .strip .track { opacity: 0; translate: 3rem 0; transition: opacity .8s ease .15s, translate 1s var(--ease) .15s; }
+  .anim .strip.in .track { opacity: 1; translate: 0 0; }
+  .strip .count { padding: 0 var(--gutter); color: var(--haze); font-size: .95rem; font-variant-numeric: tabular-nums; }
+
+  /* ---------- 6. Closing under the moon ---------- */
+  .close { background: var(--night); color: var(--moon); }
+  .close .fill { object-position: 50% 0%; opacity: .9; }
+  .close .inner {
+    position: relative; z-index: 1; height: 100%;
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center;
+    padding: 20svh var(--edge) clamp(1.5rem, 5svh, 3rem);
+  }
+  .close .bless { font-family: "Marcellus", serif; font-size: clamp(1.5rem, 6vw, 2.2rem); line-height: 1.3; max-width: 22ch; text-shadow: 0 2px 24px rgba(34,30,32,.8); }
+  .close .sign { margin-top: .75rem; text-shadow: 0 1px 12px rgba(34,30,32,.8); }
+  .actions { display: flex; flex-wrap: wrap; gap: .75rem; justify-content: center; margin-top: auto; padding-top: 2rem; }
+  .button {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .8rem 1.3rem;
+    border-radius: 999px; border: 1px solid var(--moon);
+    background: rgba(34,30,32,.6); color: var(--moon);
+    text-decoration: none; font-weight: 400; font-size: .98rem;
+    cursor: pointer;
+  }
+  .button.solid { background: var(--moon); color: var(--night); }
+  .button svg { width: 1.05rem; height: 1.05rem; }
+  .toast { display: block; min-height: 1.5em; margin-top: .75rem; text-shadow: 0 1px 10px rgba(34,30,32,.9); }
+
+  /* ---------- Photo viewer ---------- */
+  dialog.viewer { border: 0; padding: 0; width: 100vw; height: 100svh; max-width: none; max-height: none; background: rgba(34,30,32,.97); color: var(--moon); }
+  dialog.viewer::backdrop { background: rgba(34,30,32,.97); }
+  .viewer figure { width: 100%; height: 100%; display: grid; place-items: center; padding: 3.5rem .75rem; }
+  .viewer img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .viewer .round { position: absolute; border-color: rgba(237,228,222,.45); }
+  .viewer .close-btn { top: calc(1rem + env(safe-area-inset-top, 0px)); right: 1rem; }
+  .viewer .prev { left: 1rem; top: 50%; translate: 0 -50%; }
+  .viewer .next { right: 1rem; top: 50%; translate: 0 -50%; }
+  .viewer .count { position: absolute; left: 1.25rem; top: calc(1.6rem + env(safe-area-inset-top, 0px)); font-size: .95rem; color: var(--haze); }
+
+  /* ---------- Wide screens: portrait photos sit in a right-hand panel ---------- */
+  @media (min-width: 900px) {
+    .hero, .wedding, .reception { --panel: min(46vw, calc(var(--panel-h) * .75)); }
+    .hero .fill, .wedding .fill, .reception .fill { left: auto; right: 0; width: var(--panel); }
+    .hero .shade, .wedding .shade, .reception .shade { display: none; }
+    .hero .text, .wedding .text, .reception .text { left: 6vw; right: calc(var(--panel) + 4vw); bottom: auto; top: 50%; translate: 0 -50%; }
+    .hero .text { color: var(--ink); }
+    .hero .amp { color: var(--gold); }
+    .hero .when { color: var(--silk-deep); }
+    .hero .swipe { color: var(--ink); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition-duration: 0s !important; transition-delay: 0s !important; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="cal" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></g></symbol>
+  <symbol id="pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></g></symbol>
+  <symbol id="share" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3M7.5 7.5 12 3l4.5 4.5"/><path d="M5 12v7.5h14V12"/></g></symbol>
+  <symbol id="left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+</svg>
+
+<div class="cover">
+  <div class="window-light" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+  <img class="thoranam" src="img/thoranam.webp" alt="" aria-hidden="true" decoding="async">
+  <div class="cover-inner">
+    <svg class="kolam" viewBox="3340 389 3320 3200" aria-hidden="true" focusable="false">
+    <g class="k-lines" fill="none" stroke="currentColor" stroke-width="46.4" stroke-linecap="round" stroke-linejoin="round">
+    <path pathLength="1" style="--i:0" d="M5000.1 1769.3L5220.4 1989.5L5000.1 2209.8L4779.9 1989.5Z"/>
+    <path pathLength="1" style="--i:1" d="M5000.1 1328.1L5220.4 1548.3L5000.1 1768.6L4779.9 1548.3Z"/>
+    <path pathLength="1" style="--i:2" d="M4999.3 2650.1L4779.1 2429.9L4999.3 2209.6L5219.6 2429.9Z"/>
+    <path pathLength="1" style="--i:3" d="M4339.4 1988.6L4449.5 2098.7C4510.3 2159.6 4608.9 2159.6 4669.7 2098.7L4779.9 1988.6L4669.7 1878.5C4608.9 1817.7 4510.3 1817.7 4449.5 1878.5L4339.4 1988.6"/>
+    <path pathLength="1" style="--i:4" d="M5660.7 1988.6L5550.6 1878.5C5489.7 1817.7 5391.1 1817.7 5330.3 1878.5L5220.2 1988.6L5330.3 2098.7C5391.1 2159.6 5489.7 2159.6 5550.6 2098.7L5660.7 1988.6"/>
+    <path pathLength="1" style="--i:5" d="M5660.1 2429.9L5550.0 2319.8C5489.2 2258.9 5390.5 2258.9 5329.7 2319.8L5219.6 2429.9L5329.7 2540.0C5390.5 2600.8 5489.2 2600.8 5550.0 2540.0L5660.1 2429.9"/>
+    <path pathLength="1" style="--i:6" d="M4339.4 1548.3L4449.5 1658.4C4510.3 1719.3 4608.9 1719.3 4669.7 1658.4L4779.9 1548.3L4669.7 1438.2C4608.9 1377.4 4510.3 1377.4 4449.5 1438.2L4339.4 1548.3"/>
+    <path pathLength="1" style="--i:7" d="M5660.7 1548.3L5550.6 1438.2C5489.7 1377.4 5391.1 1377.4 5330.3 1438.2L5220.2 1548.3L5330.3 1658.4C5391.1 1719.3 5489.7 1719.3 5550.6 1658.4L5660.7 1548.3"/>
+    <path pathLength="1" style="--i:8" d="M4338.8 2429.9L4448.9 2540.0C4509.7 2600.8 4608.3 2600.8 4669.2 2540.0L4779.3 2429.9L4669.2 2319.8C4608.3 2258.9 4509.7 2258.9 4448.9 2319.8L4338.8 2429.9"/>
+    <path pathLength="1" style="--i:9" d="M5660.4 1988.6L5770.6 2098.7C5831.4 2159.6 5930.0 2159.6 5990.8 2098.7L6100.9 1988.6L5990.8 1878.5C5930.0 1817.7 5831.4 1817.7 5770.6 1878.5L5660.4 1988.6"/>
+    <path pathLength="1" style="--i:10" d="M5000.1 887.6L5220.4 1107.8L5000.1 1328.1L4779.9 1107.8Z"/>
+    <path pathLength="1" style="--i:11" d="M4999.3 3090.7L4779.1 2870.4L4999.3 2650.1L5219.6 2870.4Z"/>
+    <path pathLength="1" style="--i:12" d="M3899.1 1988.6L4009.2 2098.7C4070.0 2159.6 4168.6 2159.6 4229.4 2098.7L4339.6 1988.6L4229.4 1878.5C4168.6 1817.7 4070.0 1817.7 4009.2 1878.5L3899.1 1988.6"/>
+    <path pathLength="1" style="--i:13" d="M5550.0 2760.3L5550.0 2760.3C5489.2 2699.5 5390.5 2699.5 5329.7 2760.3L5219.6 2870.4L5329.7 2980.5C5390.5 3041.3 5489.2 3041.3 5550.0 2980.5L5550.0 2980.5C5610.8 2919.7 5610.8 2821.1 5550.0 2760.3"/>
+    <path pathLength="1" style="--i:14" d="M4449.5 1217.9L4449.5 1217.9C4510.3 1278.8 4608.9 1278.8 4669.7 1217.9L4779.9 1107.8L4669.7 997.7C4608.9 936.9 4510.3 936.9 4449.5 997.7L4449.5 997.7C4388.7 1058.5 4388.7 1157.1 4449.5 1217.9"/>
+    <path pathLength="1" style="--i:15" d="M6100.8 1548.3L5990.7 1658.4C5929.8 1719.3 5831.2 1719.3 5770.4 1658.4L5660.3 1548.3L5770.4 1438.2C5831.2 1377.4 5929.8 1377.4 5990.7 1438.2L6100.8 1548.3"/>
+    <path pathLength="1" style="--i:16" d="M6100.8 2429.9L5990.7 2319.8C5929.8 2258.9 5831.2 2258.9 5770.4 2319.8L5660.3 2429.9L5770.4 2540.0C5831.2 2600.8 5929.8 2600.8 5990.7 2540.0L6100.8 2429.9"/>
+    <path pathLength="1" style="--i:17" d="M3898.7 1548.3L4008.8 1658.4C4069.6 1719.3 4168.2 1719.3 4229.1 1658.4L4339.2 1548.3L4229.1 1438.2C4168.2 1377.4 4069.6 1377.4 4008.8 1438.2L3898.7 1548.3"/>
+    <path pathLength="1" style="--i:18" d="M3898.7 2429.9L4008.8 2319.8C4069.6 2258.9 4168.2 2258.9 4229.1 2319.8L4339.2 2429.9L4229.1 2540.0C4168.2 2600.8 4069.6 2600.8 4008.8 2540.0L3898.7 2429.9"/>
+    <path pathLength="1" style="--i:19" d="M5550.6 997.7L5550.6 997.7C5489.7 936.9 5391.1 936.9 5330.3 997.7L5220.2 1107.8L5330.3 1217.9C5391.1 1278.8 5489.7 1278.8 5550.6 1217.9L5550.6 1217.9C5611.4 1157.1 5611.4 1058.5 5550.6 997.7"/>
+    <path pathLength="1" style="--i:20" d="M4448.9 2980.5L4448.9 2980.5C4509.7 3041.3 4608.4 3041.3 4669.2 2980.5L4779.3 2870.4L4669.2 2760.3C4608.4 2699.4 4509.7 2699.4 4448.9 2760.3C4388.1 2821.1 4388.1 2919.7 4448.9 2980.5"/>
+    <path pathLength="1" style="--i:21" d="M6100.7 1988.6L6210.9 2098.7C6271.7 2159.6 6370.3 2159.6 6431.1 2098.7L6541.2 1988.6L6431.1 1878.5C6370.3 1817.7 6271.7 1817.7 6210.9 1878.5L6100.7 1988.6"/>
+    <path pathLength="1" style="--i:22" d="M5000.1 447.0L5220.4 667.3L5000.1 887.5L4779.9 667.3Z"/>
+    <path pathLength="1" style="--i:23" d="M4999.3 3531.2L4779.1 3310.9L4999.3 3090.7L5219.6 3310.9Z"/>
+    <path pathLength="1" style="--i:24" d="M3458.8 1988.6L3568.9 2098.7C3629.7 2159.6 3728.3 2159.6 3789.1 2098.7L3899.3 1988.6L3789.1 1878.5C3728.3 1817.7 3629.7 1817.7 3568.9 1878.5L3458.8 1988.6"/>
+    </g>
+    <g class="k-dots">
+    <path style="--i:0" d="M5022.8 1966.8C5035.4 1979.4 5035.4 1999.7 5022.8 2012.2C5010.3 2024.7 4990.0 2024.7 4977.4 2012.2C4964.9 1999.7 4964.9 1979.4 4977.4 1966.8C4990.0 1954.3 5010.3 1954.3 5022.8 1966.8"/>
+    <path style="--i:1" d="M4536.9 1965.9C4549.5 1953.4 4569.8 1953.4 4582.3 1965.9C4594.8 1978.5 4594.8 1998.8 4582.3 2011.3C4569.8 2023.8 4549.5 2023.8 4536.9 2011.3C4524.4 1998.8 4524.4 1978.5 4536.9 1965.9"/>
+    <path style="--i:2" d="M5463.1 2011.3C5450.6 2023.8 5430.3 2023.8 5417.7 2011.3C5405.2 1998.8 5405.2 1978.5 5417.7 1965.9C5430.3 1953.4 5450.6 1953.4 5463.1 1965.9C5475.7 1978.5 5475.7 1998.8 5463.1 2011.3"/>
+    <path style="--i:3" d="M5022.8 1525.6C5035.4 1538.2 5035.4 1558.5 5022.8 1571.0C5010.3 1583.5 4990.0 1583.5 4977.4 1571.0C4964.9 1558.5 4964.9 1538.2 4977.4 1525.6C4990.0 1513.1 5010.3 1513.1 5022.8 1525.6"/>
+    <path style="--i:4" d="M4976.7 2452.6C4964.1 2440.0 4964.1 2419.7 4976.7 2407.2C4989.2 2394.7 5009.5 2394.7 5022.0 2407.2C5034.6 2419.7 5034.6 2440.0 5022.0 2452.6C5009.5 2465.1 4989.2 2465.1 4976.7 2452.6"/>
+    <path style="--i:5" d="M5463.1 1571.0C5450.6 1583.5 5430.3 1583.5 5417.7 1571.0C5405.2 1558.5 5405.2 1538.2 5417.7 1525.6C5430.3 1513.1 5450.6 1513.1 5463.1 1525.6C5475.7 1538.2 5475.7 1558.5 5463.1 1571.0"/>
+    <path style="--i:6" d="M4536.4 2407.2C4548.9 2394.7 4569.2 2394.7 4581.7 2407.2C4594.3 2419.7 4594.3 2440.0 4581.7 2452.6C4569.2 2465.1 4548.9 2465.1 4536.4 2452.6C4523.8 2440.0 4523.8 2419.7 4536.4 2407.2"/>
+    <path style="--i:7" d="M5462.5 2452.6C5450.0 2465.1 5429.7 2465.1 5417.2 2452.6C5404.6 2440.0 5404.6 2419.7 5417.2 2407.2C5429.7 2394.7 5450.0 2394.7 5462.5 2407.2C5475.1 2419.7 5475.1 2440.0 5462.5 2452.6"/>
+    <path style="--i:8" d="M4536.9 1525.6C4549.5 1513.1 4569.8 1513.1 4582.3 1525.6C4594.8 1538.2 4594.8 1558.5 4582.3 1571.0C4569.8 1583.5 4549.5 1583.5 4536.9 1571.0C4524.4 1558.5 4524.4 1538.2 4536.9 1525.6"/>
+    <path style="--i:9" d="M5858.0 1965.9C5870.5 1953.4 5890.8 1953.4 5903.4 1965.9C5915.9 1978.5 5915.9 1998.8 5903.4 2011.3C5890.8 2023.8 5870.5 2023.8 5858.0 2011.3C5845.5 1998.8 5845.5 1978.5 5858.0 1965.9"/>
+    <path style="--i:10" d="M4096.6 1965.9C4109.2 1953.4 4129.5 1953.4 4142.0 1965.9C4154.5 1978.5 4154.5 1998.8 4142.0 2011.3C4129.5 2023.8 4109.2 2023.8 4096.6 2011.3C4084.1 1998.8 4084.1 1978.5 4096.6 1965.9"/>
+    <path style="--i:11" d="M5022.8 1085.1C5035.4 1097.6 5035.4 1118.0 5022.8 1130.5C5010.3 1143.0 4990.0 1143.0 4977.4 1130.5C4964.9 1118.0 4964.9 1097.6 4977.4 1085.1C4990.0 1072.6 5010.3 1072.6 5022.8 1085.1"/>
+    <path style="--i:12" d="M4976.7 2893.1C4964.1 2880.6 4964.1 2860.2 4976.7 2847.7C4989.2 2835.2 5009.5 2835.2 5022.0 2847.7C5034.6 2860.2 5034.6 2880.6 5022.0 2893.1C5009.5 2905.6 4989.2 2905.6 4976.7 2893.1"/>
+    <path style="--i:13" d="M5463.1 1130.5C5450.6 1143.0 5430.3 1143.0 5417.7 1130.5C5405.2 1118.0 5405.2 1097.6 5417.7 1085.1C5430.3 1072.6 5450.6 1072.6 5463.1 1085.1C5475.7 1097.6 5475.7 1118.0 5463.1 1130.5"/>
+    <path style="--i:14" d="M4536.4 2847.7C4548.9 2835.2 4569.2 2835.2 4581.7 2847.7C4594.3 2860.2 4594.3 2880.6 4581.7 2893.1C4569.2 2905.6 4548.9 2905.6 4536.4 2893.1C4523.8 2880.6 4523.8 2860.2 4536.4 2847.7"/>
+    <path style="--i:15" d="M5903.2 1525.6C5890.7 1513.1 5870.4 1513.1 5857.8 1525.6C5845.3 1538.2 5845.3 1558.5 5857.8 1571.0C5870.4 1583.5 5890.7 1583.5 5903.2 1571.0C5915.8 1558.5 5915.8 1538.2 5903.2 1525.6"/>
+    <path style="--i:16" d="M5903.2 2452.6C5890.7 2465.1 5870.4 2465.1 5857.8 2452.6C5845.3 2440.0 5845.3 2419.7 5857.8 2407.2C5870.4 2394.7 5890.7 2394.7 5903.2 2407.2C5915.8 2419.7 5915.8 2440.0 5903.2 2452.6"/>
+    <path style="--i:17" d="M5462.5 2893.1C5450.0 2905.6 5429.7 2905.6 5417.2 2893.1C5404.6 2880.6 5404.6 2860.2 5417.2 2847.7C5429.7 2835.2 5450.0 2835.2 5462.5 2847.7C5475.1 2860.2 5475.1 2880.6 5462.5 2893.1"/>
+    <path style="--i:18" d="M4536.9 1085.1C4549.5 1072.6 4569.8 1072.6 4582.3 1085.1C4594.8 1097.6 4594.8 1118.0 4582.3 1130.5C4569.8 1143.0 4549.5 1143.0 4536.9 1130.5C4524.4 1118.0 4524.4 1097.6 4536.9 1085.1"/>
+    <path style="--i:19" d="M4096.2 1525.6C4108.8 1513.1 4129.1 1513.1 4141.6 1525.6C4154.2 1538.2 4154.2 1558.5 4141.6 1571.0C4129.1 1583.5 4108.8 1583.5 4096.2 1571.0C4083.7 1558.5 4083.7 1538.2 4096.2 1525.6"/>
+    <path style="--i:20" d="M4096.2 2452.6C4108.8 2465.1 4129.1 2465.1 4141.6 2452.6C4154.2 2440.0 4154.2 2419.7 4141.6 2407.2C4129.1 2394.7 4108.8 2394.7 4096.2 2407.2C4083.7 2419.7 4083.7 2440.0 4096.2 2452.6"/>
+    <path style="--i:21" d="M6298.3 1965.9C6310.8 1953.4 6331.1 1953.4 6343.7 1965.9C6356.2 1978.5 6356.2 1998.8 6343.7 2011.3C6331.1 2023.8 6310.8 2023.8 6298.3 2011.3C6285.8 1998.8 6285.8 1978.5 6298.3 1965.9"/>
+    <path style="--i:22" d="M3656.3 1965.9C3668.9 1953.4 3689.2 1953.4 3701.7 1965.9C3714.2 1978.5 3714.2 1998.8 3701.7 2011.3C3689.2 2023.8 3668.9 2023.8 3656.3 2011.3C3643.8 1998.8 3643.8 1978.5 3656.3 1965.9"/>
+    <path style="--i:23" d="M5022.8 644.6C5035.4 657.1 5035.4 677.5 5022.8 690.0C5010.3 702.5 4990.0 702.5 4977.4 690.0C4964.9 677.5 4964.9 657.1 4977.4 644.6C4990.0 632.1 5010.3 632.1 5022.8 644.6"/>
+    <path style="--i:24" d="M4976.7 3333.6C4964.1 3321.1 4964.1 3300.7 4976.7 3288.2C4989.2 3275.7 5009.5 3275.7 5022.0 3288.2C5034.6 3300.7 5034.6 3321.1 5022.0 3333.6C5009.5 3346.1 4989.2 3346.1 4976.7 3333.6"/>
+    </g>
+    </svg>
+    <h1 class="display names"><span>Rohith</span><span class="amp">&amp;</span><span>Mrunalini</span></h1>
+    <p class="sub">invite you to their wedding</p>
+    <span class="open-label">Tap to open</span>
+  </div>
+  <button class="open-button" id="open" type="button" aria-label="Open the invitation"></button>
+</div>
+<canvas id="rice" aria-hidden="true"></canvas>
+<nav class="dots" id="dots" aria-label="Parts of the invitation"></nav>
+
+<main>
+  <section class="panel hero" data-name="Rohith &amp; Mrunalini" aria-label="Rohith and Mrunalini">
+    <div class="window-light" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <img class="fill" src="img/hero.jpg" alt="Rohith and Mrunalini cheek to cheek in warm window light" decoding="async">
+    <div class="shade" aria-hidden="true"></div>
+    <div class="text">
+      <h2 class="display names h-rise" style="--d:1.35s"><span>Rohith</span><span class="amp">&amp;</span><span>Mrunalini</span></h2>
+      <p class="invite h-rise" style="--d:1.55s">together with their families, invite you to their wedding</p>
+      <p class="when h-rise" style="--d:1.7s">Friday, 30 October 2026<br>Vijayawada</p>
+    </div>
+    <p class="swipe" aria-hidden="true"><i></i><span class="touch">Swipe up</span><span class="mouse">Scroll down</span></p>
+  </section>
+
+  <section class="panel haldi" data-name="Haldi" aria-labelledby="haldi-title">
+    <div class="window-light" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <div class="title">
+      <b id="haldi-title" class="rise">Haldi</b>
+      <span class="rise" style="--d:.1s">Thursday, 29 October · Vijayawada</span>
+    </div>
+    <figure class="print her" style="--d:.1s">
+      <img src="img/haldi-her.jpg" alt="Mrunalini seated in golden window light, in a teal silk saree" decoding="async">
+      <figcaption><b>Mrunalini</b><span>7:00 am</span></figcaption>
+    </figure>
+    <figure class="print his" style="--d:.25s">
+      <img src="img/haldi-his.jpg" alt="Rohith seated in golden window light, in an ivory sherwani" decoding="async">
+      <figcaption><b>Rohith</b><span>5:00 pm</span></figcaption>
+    </figure>
+  </section>
+
+  <section class="panel wedding" data-name="Wedding" aria-labelledby="wedding-title">
+    <img class="fill settle" src="img/wedding.jpg" alt="Rohith and Mrunalini, foreheads touching, her hand on his cheek" decoding="async">
+    <div class="shade" aria-hidden="true"></div>
+    <div class="text">
+      <p class="day rise">Friday, 30 October</p>
+      <h2 class="display rise" id="wedding-title" style="--d:.08s">Wedding</h2>
+      <p class="rise" style="--d:.16s">Muhurtham at 11:00 am</p>
+      <div class="clock rise" id="clock" style="--d:.24s">
+        <div><b data-u="d">00</b><span>days</span></div>
+        <div><b data-u="h">00</b><span>hours</span></div>
+        <div><b data-u="m">00</b><span>minutes</span></div>
+        <div><b data-u="s">00</b><span>seconds</span></div>
+      </div>
+      <p class="local rise" id="local" style="--d:.32s"></p>
+      <div class="place rise" style="--d:.4s">
+        <p>Shivashakti Mandapam<small>Vijayawada</small></p>
+        <a class="round" data-pin="mandapam" hidden target="_blank" rel="noopener" aria-label="Directions to Shivashakti Mandapam"><svg><use href="#pin"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel reception" data-name="Reception" aria-labelledby="reception-title">
+    <img class="fill settle" src="img/reception.jpg" alt="Mrunalini looking up at Rohith, smiling, among banana leaves at night" decoding="async">
+    <div class="shade" aria-hidden="true"></div>
+    <div class="text">
+      <p class="day rise" style="--d:.3s">Sunday, 1 November</p>
+      <h2 class="display rise" id="reception-title" style="--d:.38s">Reception</h2>
+      <p class="rise" style="--d:.46s">7:00 pm onwards</p>
+      <div class="place rise" style="--d:.54s">
+        <p>Uttsavam<small>Hyderabad</small></p>
+        <a class="round" data-pin="reception" hidden target="_blank" rel="noopener" aria-label="Directions to Uttsavam"><svg><use href="#pin"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel strip" data-name="Photos" aria-labelledby="strip-title">
+    <h2 class="display rise" id="strip-title">From our engagement</h2>
+    <p class="hint rise" style="--d:.1s">Swipe sideways for more. Tap a photo to see it full screen.</p>
+    <div class="track" id="track">
+      <button type="button"><img src="img/window.jpg" alt="Mrunalini at a bright window, looking out at the sky" loading="lazy" decoding="async"></button>
+      <button type="button"><img src="img/g01.jpg" alt="Rohith in an ivory sherwani and Mrunalini in a teal silk saree, standing together" loading="lazy" decoding="async"></button>
+      <button type="button"><img src="img/g11.jpg" alt="Rohith and Mrunalini cheek to cheek in warm window light" loading="lazy" decoding="async"></button>
+      <button type="button"><img src="img/g05.jpg" alt="Mrunalini smiling in her teal silk saree" loading="lazy" decoding="async"></button>
+      <button type="button"><img src="img/g06.jpg" alt="Rohith smiling in his ivory sherwani" loading="lazy" decoding="async"></button>
+      <button type="button"><img src="img/g07.jpg" alt="Rohith and Mrunalini close together against a pale sky" loading="lazy" decoding="async"></button>
+      <button type="button"><img src="img/g04.jpg" alt="Rohith and Mrunalini seated together by a red curtain" loading="lazy" decoding="async"></button>
+      <button type="button"><img src="img/g08.jpg" alt="Rohith and Mrunalini sharing a quiet moment by the red curtain" loading="lazy" decoding="async"></button>
+      <button type="button"><img src="img/g12.jpg" alt="Rohith and Mrunalini close, with the sky behind them" loading="lazy" decoding="async"></button>
+      <button type="button"><img src="img/g09.jpg" alt="Rohith with his parents during the engagement blessing" loading="lazy" decoding="async"></button>
+      <button type="button"><img src="img/g10.jpg" alt="Rohith and Mrunalini on the engagement stage wearing garlands" loading="lazy" decoding="async"></button>
+    </div>
+    <p class="count" id="strip-count">1 of 11</p>
+  </section>
+
+  <section class="panel close" data-name="Blessings" aria-label="Closing">
+    <img class="fill" src="img/moon.jpg" alt="Rohith and Mrunalini from behind, looking up at a full moon" loading="lazy" decoding="async">
+    <div class="inner">
+      <p class="bless rise">Your presence and blessings would mean the world to us.</p>
+      <p class="sign rise" style="--d:.15s">With love, Rohith &amp; Mrunalini</p>
+      <div class="actions rise" style="--d:.3s">
+        <button class="button solid" type="button" id="cal-all"><svg><use href="#cal"/></svg>Add all dates to calendar</button>
+        <button class="button" type="button" id="share-link"><svg><use href="#share"/></svg>Share invitation</button>
+      </div>
+      <span class="toast" id="toast" role="status"></span>
+    </div>
+  </section>
+</main>
+
+<dialog class="viewer" id="viewer" aria-label="Photo viewer">
+  <span class="count" id="count"></span>
+  <figure><img id="viewer-img" alt=""></figure>
+  <button class="round close-btn" type="button" id="v-close" aria-label="Close photo"><svg><use href="#x"/></svg></button>
+  <button class="round prev" type="button" id="v-prev" aria-label="Previous photo"><svg><use href="#left"/></svg></button>
+  <button class="round next" type="button" id="v-next" aria-label="Next photo"><svg><use href="#right"/></svg></button>
+</dialog>
+
+<script>
+(() => {
+  const root = document.documentElement;
+  root.classList.add("js");
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const still = new URLSearchParams(location.search).has("still");
+  if (still) root.classList.add("is-open");
+  else if (!reduced && "IntersectionObserver" in window) root.classList.add("anim");
+  const canvas = document.getElementById("rice");
+  const ctx = canvas.getContext("2d");
+  const panels = [...document.querySelectorAll(".panel")];
+
+  /* ---- Section dots, and each panel's entrance the first time most of it is on screen ---- */
+  const dots = document.getElementById("dots");
+  for (const p of panels) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("aria-label", p.dataset.name);
+    b.addEventListener("click", () => p.scrollIntoView({ behavior: reduced ? "auto" : "smooth" }));
+    dots.append(b);
+  }
+  function arrive(i) {
+    [...dots.children].forEach((d, j) => d.setAttribute("aria-current", j === i));
+    if (i > 0) root.classList.add("scrolled");
+    const p = panels[i];
+    if (p.classList.contains("in")) return;
+    p.classList.add("in");
+    if (p.classList.contains("haldi") && root.classList.contains("anim")) {
+      setTimeout(() => {
+        const her = p.querySelector(".her").getBoundingClientRect();
+        burst(her.right - 10, her.bottom - 30, 90, true);
+      }, 1100);
+    }
+  }
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(entries => {
+      for (const e of entries) if (e.isIntersecting) arrive(panels.indexOf(e.target));
+    }, { threshold: .6 });
+    panels.forEach(p => io.observe(p));
+  } else {
+    panels.forEach(p => p.classList.add("in"));
+  }
+
+  /* ---- One swipe, one panel. Snapping alone needs a fast flick or a half-screen drag and otherwise springs
+          back, so any clear vertical swipe, or one turn of a mouse wheel or trackpad, moves exactly one panel. ---- */
+  const dialog = document.querySelector("dialog");
+  let openedAt = 0, touch = null, touchFrom = 0, lastWheel = 0;
+  const nearest = () => panels.reduce((best, p, i) =>
+    Math.abs(p.getBoundingClientRect().top) < Math.abs(panels[best].getBoundingClientRect().top) ? i : best, 0);
+  const go = i => panels[Math.max(0, Math.min(panels.length - 1, i))].scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+  const ready = () => root.classList.contains("is-open") && !(dialog && dialog.open) && performance.now() - openedAt > 600;
+  addEventListener("touchstart", e => {
+    touch = ready() ? { x: e.touches[0].clientX, y: e.touches[0].clientY } : null;
+    if (touch) touchFrom = nearest();
+  }, { passive: true });
+  let target = null;
+  addEventListener("touchend", e => {
+    if (!touch) return;
+    const dx = touch.x - e.changedTouches[0].clientX, dy = touch.y - e.changedTouches[0].clientY;
+    touch = null;
+    if (Math.abs(dy) <= 40 || Math.abs(dy) <= Math.abs(dx)) return;  // taps, and sideways swipes in the photo strip
+    target = Math.max(0, Math.min(panels.length - 1, touchFrom + Math.sign(dy)));
+    // the phone's own flick starts on release; moving a frame later lets this move take over from it
+    requestAnimationFrame(() => go(target));
+    if (!("onscrollend" in window)) setTimeout(() => { if (target !== null && nearest() !== target) go(target); }, 500);
+  }, { passive: true });
+  // if the flick still won and sprang back, finish the move once scrolling stops
+  addEventListener("scrollend", () => {
+    if (target === null) return;
+    if (nearest() !== target) go(target); else target = null;
+  });
+  addEventListener("wheel", e => {
+    if (!ready() || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    e.preventDefault();
+    const now = performance.now(), fresh = now - lastWheel > 220;  // a trackpad sends a burst of events per gesture
+    lastWheel = now;
+    if (fresh) go(nearest() + Math.sign(e.deltaY));
+  }, { passive: false });
+
+  /* ---- Akshintalu burst ---- */
+  function burst(x, y, n = 220, turmericOnly = false) {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    canvas.width = innerWidth * dpr; canvas.height = innerHeight * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const colours = ["#e2b33c", "#cb9938", "#d9a441", "#91392c", "#af7325", "#b8402f"];
+    const bits = Array.from({ length: n }, (_, i) => {
+      const a = Math.random() * Math.PI * 2, v = (turmericOnly ? 2 : 4) + Math.random() * (turmericOnly ? 7 : 11), petal = !turmericOnly && i % 5 === 0;
+      return {
+        x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 5,
+        r: Math.random() * Math.PI, vr: (Math.random() - .5) * .4,
+        w: petal ? 5 + Math.random() * 4 : 1.6 + Math.random() * .8,
+        h: petal ? 3 + Math.random() * 3 : 4 + Math.random() * 2,
+        c: petal ? colours[3 + (i % 3)] : colours[i % 3],
+        drag: petal ? .955 : .975
+      };
+    });
+    const start = performance.now();
+    (function frame(t) {
+      const age = (t - start) / 1000;
+      ctx.clearRect(0, 0, innerWidth, innerHeight);
+      ctx.globalAlpha = Math.max(0, 1 - Math.max(0, age - 1.1) / .9);
+      for (const b of bits) {
+        b.vx *= b.drag; b.vy = b.vy * b.drag + .32;
+        b.x += b.vx; b.y += b.vy; b.r += b.vr;
+        ctx.save(); ctx.translate(b.x, b.y); ctx.rotate(b.r);
+        ctx.fillStyle = b.c; ctx.beginPath(); ctx.ellipse(0, 0, b.w, b.h, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.restore();
+      }
+      if (age < 2.1) requestAnimationFrame(frame); else ctx.clearRect(0, 0, innerWidth, innerHeight);
+    })(start);
+  }
+  function open(x, y) {
+    if (root.classList.contains("is-open")) return;
+    if (root.classList.contains("anim")) burst(x || innerWidth / 2, y || innerHeight / 2);
+    openedAt = performance.now();
+    root.classList.add("is-open");
+  }
+  document.getElementById("open").addEventListener("click", e => open(e.clientX, e.clientY));
+  // a swipe or a scroll on the cover opens it too, so nobody gets stuck on it
+  addEventListener("touchmove", () => open(), { passive: true });
+  addEventListener("wheel", () => open(), { passive: true });
+
+  /* ---- Venue pins: paste each venue's Google Maps share link ("Share", then "Copy link").
+          A directions button stays hidden until its link is set, so nobody is sent to the wrong place. ---- */
+  const PINS = { mandapam: "", reception: "" };
+  document.querySelectorAll("[data-pin]").forEach(a => {
+    const url = PINS[a.dataset.pin];
+    if (url) { a.href = url; a.hidden = false; }
+  });
+
+  // Claude's artifact viewer blocks file downloads and the share sheet, so these buttons are hidden there
+  if (window.claude) {
+    document.getElementById("cal-all").hidden = true;
+    document.getElementById("share-link").hidden = true;
+  }
+
+  /* ---- Countdown + guest's local time ---- */
+  const muhurtham = new Date("2026-10-30T11:00:00+05:30");
+  const cells = Object.fromEntries([...document.querySelectorAll("#clock b")].map(b => [b.dataset.u, b]));
+  const pad = n => String(n).padStart(2, "0");
+  function tick() {
+    let s = Math.max(0, Math.floor((muhurtham - Date.now()) / 1000));
+    cells.d.textContent = pad(Math.floor(s / 86400)); s %= 86400;
+    cells.h.textContent = pad(Math.floor(s / 3600)); s %= 3600;
+    cells.m.textContent = pad(Math.floor(s / 60)); cells.s.textContent = pad(s % 60);
+  }
+  tick(); setInterval(tick, 1000);
+  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+  const local = document.getElementById("local");
+  if (tz && !/Kolkata|Calcutta/.test(tz)) {
+    const when = muhurtham.toLocaleString(undefined, { weekday: "long", day: "numeric", month: "long", hour: "numeric", minute: "2-digit" });
+    local.textContent = `For you in ${tz.split("/").pop().replace(/_/g, " ")}, that's ${when}.`;
+  } else {
+    local.textContent = "Please be seated a little before 11.";
+  }
+
+  /* ---- One calendar file with all four events ---- */
+  const toast = document.getElementById("toast");
+  const events = [
+    ["haldi-bride", "Mrunalini's haldi", "20261029T013000Z", "20261029T043000Z", "Vijayawada"],
+    ["haldi-groom", "Rohith's haldi", "20261029T113000Z", "20261029T143000Z", "Vijayawada"],
+    ["wedding", "Rohith & Mrunalini's wedding (muhurtham 11:00 am)", "20261030T053000Z", "20261030T083000Z", "Shivashakti Mandapam, Vijayawada"],
+    ["reception", "Rohith & Mrunalini's reception", "20261101T133000Z", "20261101T163000Z", "Uttsavam, Hyderabad"]
+  ];
+  document.getElementById("cal-all").addEventListener("click", () => {
+    const url = location.href.split("?")[0];
+    const body = events.map(([id, title, start, end, where]) => [
+      "BEGIN:VEVENT", `UID:${id}-rohith-mrunalini-2026`, "DTSTAMP:20261010T000000Z",
+      `DTSTART:${start}`, `DTEND:${end}`, `SUMMARY:${title}`, `LOCATION:${where.replace(/,/g, "\\,")}`, `DESCRIPTION:${url}`, "END:VEVENT"
+    ].join("\r\n"));
+    const ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Rohith and Mrunalini//Invitation//EN", ...body, "END:VCALENDAR"].join("\r\n");
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
+    a.download = "rohith-mrunalini-wedding.ics";
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    toast.textContent = "Calendar file downloaded. Open it to add all four dates.";
+  });
+
+  /* ---- Photos: counter while swiping, full-screen viewer on tap ---- */
+  const track = document.getElementById("track");
+  const shots = [...track.querySelectorAll("img")];
+  const stripCount = document.getElementById("strip-count");
+  track.addEventListener("scroll", () => {
+    const step = track.firstElementChild.offsetWidth + parseFloat(getComputedStyle(track).columnGap || 0);
+    const atEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2;
+    const i = atEnd ? shots.length - 1 : Math.min(shots.length - 1, Math.round(track.scrollLeft / step));
+    stripCount.textContent = `${i + 1} of ${shots.length}`;
+  }, { passive: true });
+
+  const viewer = document.getElementById("viewer");
+  const vimg = document.getElementById("viewer-img");
+  const count = document.getElementById("count");
+  let current = 0;
+  function show(i) {
+    current = (i + shots.length) % shots.length;
+    vimg.src = shots[current].src; vimg.alt = shots[current].alt;
+    count.textContent = `${current + 1} of ${shots.length}`;
+  }
+  shots.forEach((img, i) => img.parentElement.addEventListener("click", () => { show(i); viewer.showModal(); }));
+  document.getElementById("v-close").addEventListener("click", () => viewer.close());
+  document.getElementById("v-prev").addEventListener("click", () => show(current - 1));
+  document.getElementById("v-next").addEventListener("click", () => show(current + 1));
+  viewer.addEventListener("keydown", e => {
+    if (e.key === "ArrowLeft") show(current - 1);
+    if (e.key === "ArrowRight") show(current + 1);
+  });
+  let touchX = null;
+  viewer.addEventListener("touchstart", e => { touchX = e.touches[0].clientX; }, { passive: true });
+  viewer.addEventListener("touchend", e => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 40) show(current + (dx < 0 ? 1 : -1));
+    touchX = null;
+  });
+
+  /* ---- Share ---- */
+  document.getElementById("share-link").addEventListener("click", async () => {
+    const data = { title: "Rohith & Mrunalini's wedding", text: "You're invited to our wedding on Friday, 30 October in Vijayawada.", url: location.href.split("?")[0] };
+    if (navigator.share) {
+      try { await navigator.share(data); return; }
+      catch (err) { if (err && err.name === "AbortError") return; }  // refused: fall back to copying the link
+    }
+    try {
+      await navigator.clipboard.writeText(data.url);
+      toast.textContent = "Link copied. Paste it into WhatsApp or anywhere you like.";
+    } catch {
+      toast.textContent = "Couldn't copy the link. Copy it from your browser's address bar instead.";
+    }
+  });
+})();
+</script>
+</body>
+</html>
